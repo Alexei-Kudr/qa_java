@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class LionTest {
@@ -43,12 +44,12 @@ public class LionTest {
 
     @Test
     public void doesHaveManeThrowsExceptionTest() {
-        try {
-            Lion lion = new Lion("Котик", feline);
-        } catch (Exception exception) {
-            String textException = "Используйте допустимые значения пола животного - самец или самка";
-            assertEquals(textException, exception.getMessage());
-        }
+        Exception exception = assertThrows(
+                Exception.class,
+                () -> new Lion("Котик", feline)
+        );
+        String textException = "Используйте допустимые значения пола животного - самец или самка";
+        assertEquals(textException, exception.getMessage());
     }
 }
 
